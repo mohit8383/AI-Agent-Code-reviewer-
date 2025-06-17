@@ -1,0 +1,173 @@
+# requirements.txt
+# Core Flask dependencies
+Flask==2.3.2
+Flask-CORS==4.0.0
+
+# CLI dependencies
+requests==2.31.0
+rich==13.4.2
+PyYAML==6.0
+
+# Optional dependencies for enhanced functionality
+click==8.1.3
+colorama==0.4.6
+python-dotenv==1.0.0
+
+# Development dependencies (optional)
+pytest==7.4.0
+pytest-cov==4.1.0
+black==23.7.0
+flake8==6.0.0
+mypy==1.4.1
+
+---
+
+# setup.py
+from setuptools import setup, find_packages
+
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
+
+setup(
+    name="ai-code-review-agent",
+    version="1.0.0",
+    author="AI Code Review Team",
+    author_email="team@aicodereviewer.com",
+    description="AI-powered code review and analysis tool",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/yourusername/ai-code-review-agent",
+    packages=find_packages(),
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+    ],
+    python_requires=">=3.8",
+    install_requires=[
+        "Flask>=2.3.0",
+        "Flask-CORS>=4.0.0",
+        "requests>=2.31.0",
+        "rich>=13.4.0",
+        "PyYAML>=6.0",
+        "click>=8.1.0",
+        "colorama>=0.4.6",
+        "python-dotenv>=1.0.0",
+    ],
+    extras_require={
+        "dev": [
+            "pytest>=7.4.0",
+            "pytest-cov>=4.1.0",
+            "black>=23.7.0",
+            "flake8>=6.0.0", 
+            "mypy>=1.4.0",
+        ],
+    },
+    entry_points={
+        "console_scripts": [
+            "code-review=cli:main",
+        ],
+    },
+)
+
+---
+
+# Makefile
+.PHONY: install dev test lint format clean server cli help
+
+# Default target
+help:
+	@echo "AI Code Review Agent - Available Commands:"
+	@echo ""
+	@echo "  install     - Install dependencies"
+	@echo "  dev         - Install development dependencies"
+	@echo "  server      - Start the Flask server"
+	@echo "  cli         - Show CLI usage examples"
+	@echo "  test        - Run tests"
+	@echo "  lint        - Run linting"
+	@echo "  format      - Format code"
+	@echo "  clean       - Clean temporary files"
+	@echo ""
+
+install:
+	pip install -r requirements.txt
+
+dev:
+	pip install -r requirements.txt
+	pip install -e .[dev]
+
+server:
+	@echo "🚀 Starting AI Code Review Agent Server..."
+	python app.py
+
+cli:
+	@echo "📝 CLI Usage Examples:"
+	@echo ""
+	@echo "  # Create sample configuration"
+	@echo "  python cli.py create-config"
+	@echo ""
+	@echo "  # Analyze current directory"
+	@echo "  python cli.py analyze ."
+	@echo ""
+	@echo "  # Analyze specific files"
+	@echo "  python cli.py analyze src/main.py src/utils.py"
+	@echo ""
+	@echo "  # Use custom config and output JSON"
+	@echo "  python cli.py analyze . --config custom.yaml --format json"
+	@echo ""
+	@echo "  # Save results and skip HTML report"
+	@echo "  python cli.py analyze . --output results.json --no-report"
+	@echo ""
+
+test:
+	pytest tests/ -v --cov=.
+
+lint:
+	flake8 *.py
+	mypy *.py
+
+format:
+	black *.py
+	isort *.py
+
+clean:
+	find . -type f -name "*.pyc" -delete
+	find . -type d -name "__pycache__" -delete
+	find . -type d -name "*.egg-info" -exec rm -rf {} +
+	rm -rf build/
+	rm -rf dist/
+	rm -rf .coverage
+	rm -rf .pytest_cache/
+
+---
+
+# .env.example
+# AI Code Review Agent Configuration
+
+# Server Configuration
+FLASK_HOST=0.0.0.0
+FLASK_PORT=5000
+FLASK_DEBUG=true
+
+# Analysis Configuration
+DEFAULT_CONFIG_FILE=code_review_config.yaml
+MAX_FILE_SIZE_MB=50
+MAX_FILES_PER_REQUEST=100
+
+# Temporary Storage
+TEMP_DIR=/tmp/code_review
+CLEANUP_INTERVAL_HOURS=24
+
+# Logging
+LOG_LEVEL=INFO
+LOG_FILE=logs/code_review.log
+
+# Optional: External AI Service Configuration
+# AI_SERVICE_URL=https://api.example.com/analyze
+# AI_SERVICE_KEY=your_api_key_here

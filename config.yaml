@@ -1,0 +1,395 @@
+# AI Code Review Agent Configuration
+# This file contains all configuration options for the code review agent
+
+# Server Configuration
+server:
+  host: "0.0.0.0"
+  port: 5000
+  debug: true
+  max_file_size: "100MB"
+  max_files: 50
+  upload_timeout: 300  # seconds
+
+# Review Engine Settings
+engine:
+  # Maximum number of concurrent reviews
+  max_concurrent_reviews: 5
+  
+  # Analysis timeout per file (seconds)
+  analysis_timeout: 120
+  
+  # Enable different analysis modules
+  modules:
+    security: true
+    performance: true
+    style: true
+    complexity: true
+    documentation: true
+    testing: true
+
+# Security Analysis Settings
+security:
+  # Enable specific security checks
+  checks:
+    sql_injection: true
+    xss_vulnerabilities: true
+    command_injection: true
+    path_traversal: true
+    weak_crypto: true
+    hardcoded_secrets: true
+    insecure_deserialization: true
+    
+  # Security rules severity levels
+  severity_levels:
+    critical: ["sql_injection", "command_injection", "hardcoded_secrets"]
+    high: ["xss_vulnerabilities", "path_traversal", "weak_crypto"]
+    medium: ["insecure_deserialization"]
+    
+  # Known vulnerable patterns (regex)
+  vulnerable_patterns:
+    - pattern: "eval\\s*\\("
+      severity: "critical"
+      description: "Use of eval() function"
+      suggestion: "Use ast.literal_eval() or safer alternatives"
+      
+    - pattern: "exec\\s*\\("
+      severity: "critical" 
+      description: "Use of exec() function"
+      suggestion: "Avoid dynamic code execution"
+      
+    - pattern: "password\\s*=\\s*['\"][^'\"]+['\"]"
+      severity: "high"
+      description: "Hardcoded password detected"
+      suggestion: "Use environment variables or secure credential storage"
+
+# Performance Analysis Settings  
+performance:
+  # Complexity thresholds
+  complexity:
+    cyclomatic_max: 10
+    cognitive_max: 15
+    nesting_max: 4
+    
+  # Performance patterns to detect
+  patterns:
+    - pattern: "for.*in.*range\\(len\\("
+      severity: "medium"
+      description: "Inefficient iteration pattern"
+      suggestion: "Use direct iteration or enumerate()"
+      
+    - pattern: "\\+\\s*=\\s*.*\\+"  # String concatenation in loop
+      severity: "medium"
+      description: "String concatenation in loop"
+      suggestion: "Use join() method for better performance"
+      
+  # Memory usage thresholds
+  memory:
+    max_list_size_warning: 10000
+    max_dict_size_warning: 5000
+
+# Code Style Settings
+style:
+  # Style guides to support
+  guides:
+    python:
+      name: "PEP 8"
+      line_length: 79
+      indent_size: 4
+      use_spaces: true
+      
+    javascript:
+      name: "Airbnb"
+      line_length: 100
+      indent_size: 2
+      use_spaces: true
+      semicolons: true
+      
+    java:
+      name: "Google Java Style"
+      line_length: 100
+      indent_size: 2
+      use_spaces: true
+      
+  # Common style issues
+  checks:
+    line_length: true
+    trailing_whitespace: true
+    missing_docstrings: true
+    naming_conventions: true
+    import_organization: true
+
+# File Processing Settings
+files:
+  # Supported file extensions
+  supported_extensions:
+    - ".py"   # Python
+    - ".js"   # JavaScript
+    - ".java" # Java
+    - ".cpp"  # C++
+    - ".c"    # C
+    - ".cs"   # C#
+    - ".php"  # PHP
+    - ".rb"   # Ruby
+    - ".go"   # Go
+    - ".rs"   # Rust
+    - ".ts"   # TypeScript
+    - ".jsx"  # React JSX
+    - ".vue"  # Vue.js
+    - ".html" # HTML
+    - ".css"  # CSS
+    - ".sql"  # SQL
+    - ".sh"   # Shell scripts
+    - ".bat"  # Batch files
+    - ".ps1"  # PowerShell
+    
+  # Default exclusion patterns
+  exclude_patterns:
+    - "__pycache__"
+    - ".git"
+    - ".svn"
+    - ".hg"
+    - "node_modules"
+    - ".venv"
+    - "venv"
+    - "env"
+    - "*.pyc"
+    - "*.pyo"
+    - "*.pyd"
+    - "*.so"
+    - "*.dll"
+    - "*.dylib"
+    - "*.min.js"
+    - "*.min.css"
+    - "dist"
+    - "build"
+    - "target"
+    - ".idea"
+    - ".vscode"
+    - "*.log"
+    - "*.tmp"
+    - "*.bak"
+    - "*.swp"
+    - ".DS_Store"
+    - "Thumbs.db"
+    
+  # Maximum file size to analyze (in bytes)
+  max_file_size: 10485760  # 10MB
+  
+  # Binary file detection
+  binary_extensions:
+    - ".exe"
+    - ".dll"
+    - ".so"
+    - ".dylib"
+    - ".bin"
+    - ".img"
+    - ".iso"
+    - ".zip"
+    - ".tar"
+    - ".gz"
+    - ".7z"
+    - ".rar"
+    - ".pdf"
+    - ".doc"
+    - ".docx"
+    - ".xls"
+    - ".xlsx"
+    - ".ppt"
+    - ".pptx"
+    - ".jpg"
+    - ".jpeg"
+    - ".png"
+    - ".gif"
+    - ".bmp"
+    - ".svg"
+    - ".mp3"
+    - ".mp4"
+    - ".avi"
+    - ".mov"
+
+# Language-Specific Settings
+languages:
+  python:
+    version: "3.8+"
+    linters:
+      - "flake8"
+      - "pylint" 
+      - "mypy"
+    formatters:
+      - "black"
+      - "autopep8"
+    security_tools:
+      - "bandit"
+      - "safety"
+      
+  javascript:
+    version: "ES2020"
+    linters:
+      - "eslint"
+      - "jshint"
+    formatters:
+      - "prettier"
+    security_tools:
+      - "eslint-plugin-security"
+      - "npm-audit"
+      
+  java:
+    version: "11+"
+    linters:
+      - "checkstyle"
+      - "pmd"
+      - "spotbugs"
+    formatters:
+      - "google-java-format"
+    security_tools:
+      - "spotbugs-security"
+
+# AI Model Configuration
+ai_model:
+  # Primary model for code analysis
+  primary:
+    provider: "openai"  # openai, anthropic, local
+    model: "gpt-4"
+    temperature: 0.1
+    max_tokens: 4000
+    
+  # Fallback model
+  fallback:
+    provider: "anthropic"
+    model: "claude-3-sonnet"
+    temperature: 0.1
+    max_tokens: 4000
+    
+  # Model-specific settings
+  settings:
+    context_window: 8192
+    batch_size: 10
+    retry_attempts: 3
+    timeout: 30
+
+# Output Configuration
+output:
+  # Report formats
+  formats:
+    - "html"
+    - "json"
+    - "markdown"
+    - "pdf"
+    - "csv"
+    
+  # Report sections to include
+  sections:
+    executive_summary: true
+    metrics_overview: true
+    security_analysis: true
+    performance_analysis: true
+    style_analysis: true
+    detailed_issues: true
+    recommendations: true
+    improved_code: true
+    
+  # Metrics to calculate
+  metrics:
+    - "total_issues"
+    - "security_issues"
+    - "performance_issues"
+    - "style_issues"
+    - "complexity_score"
+    - "maintainability_index"
+    - "technical_debt_ratio"
+    - "code_coverage"
+    - "duplication_percentage"
+
+# Integration Settings
+integrations:
+  # Git integration
+  git:
+    enabled: true
+    analyze_diff: true
+    commit_message_analysis: true
+    branch_comparison: true
+    
+  # CI/CD integration
+  ci_cd:
+    enabled: true
+    fail_on_critical: true
+    fail_on_security_issues: true
+    max_issues_threshold: 50
+    
+  # IDE plugins
+  ide:
+    vscode: true
+    intellij: true
+    vim: true
+    emacs: true
+    
+  # Third-party tools
+  external_tools:
+    sonarqube: false
+    codeclimate: false
+    snyk: false
+
+# Caching Configuration
+cache:
+  enabled: true
+  ttl: 3600  # seconds
+  max_size: "1GB"
+  storage: "redis"  # redis, memory, disk
+  
+  # Redis settings (if using Redis)
+  redis:
+    host: "localhost" 
+    port: 6379
+    db: 0
+    password: null
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  # Log files
+  files:
+    main: "logs/agent.log"
+    error: "logs/error.log"
+    access: "logs/access.log"
+    
+  # Log rotation
+  rotation:
+    max_size: "10MB"
+    backup_count: 5
+    
+  # External logging
+  external:
+    sentry: false
+    elasticsearch: false
+    cloudwatch: false
+
+# Security Settings
+security_config:
+  # API security
+  api:
+    rate_limiting: true
+    max_requests_per_minute: 100
+    require_api_key: false
+    cors_origins: ["*"]
+    
+  # File upload security
+  uploads:
+    scan_for_malware: true
+    validate_file_types: true
+    sanitize_filenames: true
+    max_total_size: "500MB"
+    
+  # Data privacy
+  privacy:
+    anonymize_results: false
+    retain_data_days: 30
+    encrypt_sensitive_data: true
+
+# Development Settings
+development:
+  mock_ai_responses: true
+  enable_debug_endpoints: true
+  profile_performance: false
+  generate_test_data: true
