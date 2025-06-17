@@ -4,14 +4,14 @@ A powerful command-line interface for automated code analysis and review using A
 
 ## ✨ Features
 
-- **Multi-language Support**: Python, JavaScript, TypeScript, Java, C++, C#, PHP, Ruby, Go, Rust
-- **Comprehensive Analysis**: Security, performance, style, complexity, and documentation checks
-- **Rich CLI Interface**: Beautiful terminal output with progress bars and colored results
-- **Flexible Configuration**: YAML/JSON configuration files with customizable rules
-- **Multiple Output Formats**: Detailed terminal output, JSON export, HTML reports
-- **Batch Processing**: Analyze entire directories or specific files
-- **Code Improvement**: Download improved versions of your code
-- **Server Integration**: Works with Flask backend for distributed analysis
+* **Multi-language Support**: Python, JavaScript, TypeScript, Java, C++, C#, PHP, Ruby, Go, Rust
+* **Comprehensive Analysis**: Security, performance, style, complexity, and documentation checks
+* **Rich CLI Interface**: Beautiful terminal output with progress bars and colored results
+* **Flexible Configuration**: YAML/JSON configuration files with customizable rules
+* **Multiple Output Formats**: Detailed terminal output, JSON export, HTML reports
+* **Batch Processing**: Analyze entire directories or specific files
+* **Code Improvement**: Download improved versions of your code
+* **Server Integration**: Works with Flask backend for distributed analysis
 
 ## 🚀 Quick Start
 
@@ -32,16 +32,19 @@ pip install -e .[dev]
 ### Basic Usage
 
 1. **Start the Flask server** (in one terminal):
+
 ```bash
 python app.py
 ```
 
 2. **Create a configuration file**:
+
 ```bash
 python cli.py create-config
 ```
 
 3. **Analyze your code**:
+
 ```bash
 # Analyze current directory
 python cli.py analyze .
@@ -58,29 +61,34 @@ python cli.py analyze . --config custom_config.yaml
 ### Command Reference
 
 #### Create Configuration
+
 ```bash
 python cli.py create-config
 ```
+
 Creates a sample `code_review_config.yaml` file with default settings.
 
 #### Analyze Code
+
 ```bash
 python cli.py analyze <paths> [options]
 ```
 
 **Options:**
-- `--config, -c`: Configuration file path (default: code_review_config.yaml)
-- `--server, -s`: Server URL (default: http://localhost:5000)
-- `--format, -f`: Output format (detailed|json)
-- `--extensions`: File extensions to include
-- `--output, -o`: Save results to file
-- `--report`: HTML report output file
-- `--no-report`: Skip HTML report generation
-- `--download-improved`: Download improved code package
+
+* `--config, -c`: Configuration file path (default: code\_review\_config.yaml)
+* `--server, -s`: Server URL (default: [http://localhost:5000](http://localhost:5000))
+* `--format, -f`: Output format (detailed|json)
+* `--extensions`: File extensions to include
+* `--output, -o`: Save results to file
+* `--report`: HTML report output file
+* `--no-report`: Skip HTML report generation
+* `--download-improved`: Download improved code package
 
 ### Configuration Examples
 
 #### Basic Configuration
+
 ```yaml
 # code_review_config.yaml
 analysis:
@@ -108,6 +116,7 @@ filters:
 ```
 
 #### Advanced Configuration
+
 ```yaml
 analysis:
   security: true
@@ -154,12 +163,14 @@ advanced:
 ## 💡 Usage Examples
 
 ### Example 1: Quick Analysis
+
 ```bash
 # Analyze current directory with default settings
 python cli.py analyze .
 ```
 
 ### Example 2: Custom Configuration
+
 ```bash
 # Create custom config
 python cli.py create-config
@@ -169,30 +180,35 @@ python cli.py analyze src/ --config code_review_config.yaml
 ```
 
 ### Example 3: Specific File Types
+
 ```bash
 # Only analyze Python and JavaScript files
 python cli.py analyze . --extensions .py .js
 ```
 
 ### Example 4: JSON Output
+
 ```bash
 # Output results as JSON for further processing
 python cli.py analyze . --format json --output results.json
 ```
 
 ### Example 5: Skip HTML Report
+
 ```bash
 # Analyze without generating HTML report
 python cli.py analyze . --no-report
 ```
 
 ### Example 6: Download Improvements
+
 ```bash
 # Analyze and download improved code
 python cli.py analyze . --download-improved improved_code.zip
 ```
 
 ### Example 7: Multiple Directories
+
 ```bash
 # Analyze multiple directories
 python cli.py analyze src/ tests/ utils/
@@ -201,14 +217,16 @@ python cli.py analyze src/ tests/ utils/
 ## 🔧 Development Setup
 
 ### Prerequisites
-- Python 3.8+
-- Flask 2.3+
-- Rich (for CLI formatting)
-- PyYAML
-- Requests
-- Click
+
+* Python 3.8+
+* Flask 2.3+
+* Rich (for CLI formatting)
+* PyYAML
+* Requests
+* Click
 
 ### Installation for Development
+
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/ai-code-review-agent.git
@@ -226,6 +244,7 @@ pip install pytest pytest-cov black flake8 mypy
 ```
 
 ### Running Tests
+
 ```bash
 # Run all tests
 pytest
@@ -241,6 +260,7 @@ pytest -v
 ```
 
 ### Code Quality Checks
+
 ```bash
 # Format code with black
 black src/ tests/
@@ -255,6 +275,7 @@ mypy src/
 ## 📊 Output Examples
 
 ### Terminal Output
+
 ```
 🔍 AI Code Review Agent
 📁 Analyzing: ./src
@@ -262,13 +283,10 @@ mypy src/
 Progress: ██████████ 100% | 15/15 files
 
 📋 Analysis Results:
-┌─────────────────────────────────────────────────────────────┐
-│ File: src/main.py                                           │
-├─────────────────────────────────────────────────────────────┤
-│ 🔴 HIGH: Potential SQL injection vulnerability (line 42)   │
-│ 🟡 MEDIUM: Function too complex (line 15)                  │
-│ 🟢 LOW: Missing docstring (line 8)                         │
-└─────────────────────────────────────────────────────────────┘
+🏐 File: src/main.py
+🔴 HIGH: Potential SQL injection vulnerability (line 42)
+🟡 MEDIUM: Function too complex (line 15)
+🟢 LOW: Missing docstring (line 8)
 
 📈 Summary:
 • Files analyzed: 15
@@ -284,6 +302,7 @@ Progress: ██████████ 100% | 15/15 files
 ```
 
 ### JSON Output
+
 ```json
 {
   "summary": {
@@ -320,9 +339,11 @@ Progress: ██████████ 100% | 15/15 files
 ### Server Endpoints
 
 #### POST /analyze
+
 Analyze code files or directories.
 
 **Request Body:**
+
 ```json
 {
   "files": [
@@ -343,6 +364,7 @@ Analyze code files or directories.
 ```
 
 **Response:**
+
 ```json
 {
   "status": "success",
@@ -354,9 +376,11 @@ Analyze code files or directories.
 ```
 
 #### GET /health
+
 Check server health status.
 
 **Response:**
+
 ```json
 {
   "status": "healthy",
@@ -367,57 +391,58 @@ Check server health status.
 
 ## 🎯 Supported Languages
 
-| Language   | Extension | Style Guide    | Security Checks |
-|------------|-----------|----------------|-----------------|
-| Python     | .py       | PEP8, Google   | ✅              |
-| JavaScript | .js       | StandardJS     | ✅              |
-| TypeScript | .ts       | TSLint         | ✅              |
-| Java       | .java     | Google, Sun    | ✅              |
-| C++        | .cpp, .cc | Google         | ✅              |
-| C#         | .cs       | Microsoft      | ✅              |
-| PHP        | .php      | PSR-12         | ✅              |
-| Ruby       | .rb       | RuboCop        | ✅              |
-| Go         | .go       | gofmt          | ✅              |
-| Rust       | .rs       | rustfmt        | ✅              |
+| Language   | Extension | Style Guide  | Security Checks |
+| ---------- | --------- | ------------ | --------------- |
+| Python     | .py       | PEP8, Google | ✅               |
+| JavaScript | .js       | StandardJS   | ✅               |
+| TypeScript | .ts       | TSLint       | ✅               |
+| Java       | .java     | Google, Sun  | ✅               |
+| C++        | .cpp, .cc | Google       | ✅               |
+| C#         | .cs       | Microsoft    | ✅               |
+| PHP        | .php      | PSR-12       | ✅               |
+| Ruby       | .rb       | RuboCop      | ✅               |
+| Go         | .go       | gofmt        | ✅               |
+| Rust       | .rs       | rustfmt      | ✅               |
 
 ## 🔒 Security Analysis
 
 The tool checks for common security vulnerabilities:
 
-- **SQL Injection**: Detects unsafe database queries
-- **XSS**: Cross-site scripting vulnerabilities
-- **CSRF**: Cross-site request forgery issues
-- **Path Traversal**: Directory traversal attacks
-- **Command Injection**: OS command injection
-- **Hardcoded Secrets**: API keys, passwords in code
-- **Insecure Crypto**: Weak encryption methods
-- **Authentication**: Missing or weak auth checks
+* **SQL Injection**: Detects unsafe database queries
+* **XSS**: Cross-site scripting vulnerabilities
+* **CSRF**: Cross-site request forgery issues
+* **Path Traversal**: Directory traversal attacks
+* **Command Injection**: OS command injection
+* **Hardcoded Secrets**: API keys, passwords in code
+* **Insecure Crypto**: Weak encryption methods
+* **Authentication**: Missing or weak auth checks
 
 ## 📈 Performance Analysis
 
 Performance checks include:
 
-- **Complexity**: Cyclomatic complexity analysis
-- **Memory Usage**: Potential memory leaks
-- **Loop Efficiency**: Nested loops and optimization
-- **Database Queries**: N+1 query problems
-- **Caching**: Missing cache opportunities
-- **Async/Await**: Blocking operations
-- **Algorithm Efficiency**: Big O analysis
+* **Complexity**: Cyclomatic complexity analysis
+* **Memory Usage**: Potential memory leaks
+* **Loop Efficiency**: Nested loops and optimization
+* **Database Queries**: N+1 query problems
+* **Caching**: Missing cache opportunities
+* **Async/Await**: Blocking operations
+* **Algorithm Efficiency**: Big O analysis
 
 ## 🎨 Style Analysis
 
 Style checks cover:
 
-- **Naming Conventions**: Variables, functions, classes
-- **Code Formatting**: Indentation, spacing, line length
-- **Documentation**: Docstrings, comments
-- **Code Organization**: Import order, structure
-- **Language-Specific**: Following language conventions
+* **Naming Conventions**: Variables, functions, classes
+* **Code Formatting**: Indentation, spacing, line length
+* **Documentation**: Docstrings, comments
+* **Code Organization**: Import order, structure
+* **Language-Specific**: Following language conventions
 
 ## 🔧 Configuration Reference
 
 ### Analysis Options
+
 ```yaml
 analysis:
   security: true          # Enable security checks
@@ -429,6 +454,7 @@ analysis:
 ```
 
 ### Rule Configuration
+
 ```yaml
 rules:
   styleGuide: "pep8"           # Style guide to follow
@@ -442,6 +468,7 @@ rules:
 ```
 
 ### Output Configuration
+
 ```yaml
 output:
   format: "detailed"          # Output format (detailed|json|brief)
@@ -453,6 +480,7 @@ output:
 ```
 
 ### Filter Configuration
+
 ```yaml
 filters:
   minSeverity: "low"         # Minimum severity level
@@ -480,6 +508,7 @@ filters:
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ### Development Process
+
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Make your changes
@@ -490,31 +519,30 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 8. Open a Pull Request
 
 ### Code Standards
-- Follow PEP 8 for Python code
-- Add type hints for all functions
-- Write comprehensive tests
-- Update documentation for new features
-- Use meaningful commit messages
+
+* Follow PEP 8 for Python code
+* Add type hints for all functions
+* Write comprehensive tests
+* Update documentation for new features
+* Use meaningful commit messages
 
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🆘 Support
+## 🔚 Support
 
-- **Documentation**: Check this README and inline help (`python cli.py --help`)
-- **Issues**: Report bugs on [GitHub Issues](https://github.com/yourusername/ai-code-review-agent/issues)
-- **Discussions**: Join conversations on [GitHub Discussions](https://github.com/yourusername/ai-code-review-agent/discussions)
-- **Email**: Contact us at support@yourcompany.com
+* **Documentation**: Check this README and inline help (`python cli.py --help`)
+* **Issues**: Report bugs on [GitHub Issues](https://github.com/yourusername/ai-code-review-agent/issues)
+* **Discussions**: Join conversations on [GitHub Discussions](https://github.com/mohit8383/-code-review-agent)
+* **Email**: Contact us at [support@yourcompany.com](mailto:mohitkasat83@gmail.com)
 
 ## 🎉 Acknowledgments
 
-- Thanks to all contributors who have helped improve this tool
-- Inspired by popular static analysis tools like ESLint, Pylint, and SonarQube
-- Built with amazing open-source libraries
+* Thanks to all contributors who have helped improve this tool
+* Inspired by popular static analysis tools like ESLint, Pylint, and SonarQube
+* Built with amazing open-source libraries
 
 ---
 
-**Happy Coding! 🚀**#   A I - A g e n t - C o d e - r e v i e w e r - 
- 
- 
+**Happy Coding! 🚀**
