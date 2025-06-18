@@ -1,0 +1,22 @@
+analysis:
+  complexity: true
+  performance: true
+  security: true
+  style: true
+filters:
+  excludeFiles:
+  - .git/*
+  - node_modules/*
+  - '*.min.js'
+  - __pycache__/*
+  includeTests: true
+  minSeverity: low
+output:
+  format: detailed
+  generateReport: true
+  includeFixSuggestions: true
+rules:
+  allowUnsafeOperations: false
+  maxComplexity: 10
+  maxLineLength: 120
+  styleGuide: pep8
